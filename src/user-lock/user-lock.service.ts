@@ -40,10 +40,12 @@ export class UserLockService {
     return await this.userLockRepository.nativeDelete({ id });
   }
 
-  async unlock(userId: number, lockId: number) {
+  async unlock(rfId: string, lockId: number) {
     const userLock = await this.userLockRepository.findOne({
       lock: lockId,
-      user: userId,
+      user: {
+        rfId,
+      },
     });
 
     if (!userLock) {
