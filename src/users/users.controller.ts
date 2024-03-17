@@ -37,10 +37,10 @@ export class UsersController {
     return this.usersService.update(+id, updateUserDto);
   }
 
-  @Patch('/rfid/:rfid')
+  @Post('rfid')
   @HttpCode(201)
-  addRfIdInUser(@Param('rfid') rfid: string) {
-    return this.usersService.addRfIdInUser(rfid);
+  addRfIdInUser(@Body('rfId') rfId: string) {
+    return this.usersService.addRfIdInUser(rfId);
   }
 
   @Delete(':id')
