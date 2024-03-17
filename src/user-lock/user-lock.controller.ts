@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { UserLockService } from './user-lock.service';
 import { CreateUserLockDto } from './dto/create-user-lock.dto';
 import { UpdateUserLockDto } from './dto/update-user-lock.dto';
@@ -23,12 +31,20 @@ export class UserLockController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserLockDto: UpdateUserLockDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateUserLockDto: UpdateUserLockDto,
+  ) {
     return this.userLockService.update(+id, updateUserLockDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.userLockService.remove(+id);
+  }
+
+  @Get(':userId/unlock/:lockId')
+  unlock(@Param('userId') userId: string, @Param('lockId') lockId: string) {
+    return this.userLockService.unlock(+userId, +lockId);
   }
 }

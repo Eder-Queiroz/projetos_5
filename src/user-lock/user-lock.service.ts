@@ -1,15 +1,18 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CreateUserLockDto } from './dto/create-user-lock.dto';
 import { UpdateUserLockDto } from './dto/update-user-lock.dto';
 import { UserLock } from './entities/user-lock.entity';
 import { EntityRepository } from '@mikro-orm/core';
 import { InjectRepository } from '@mikro-orm/nestjs';
+import { LogService } from '../log/log.service';
 
 @Injectable()
 export class UserLockService {
   constructor(
     @InjectRepository(UserLock)
     private readonly userLockRepository: EntityRepository<UserLock>,
+    @Inject(LogService)
+    private readonly logService: LogService,
   ) {}
 
   async create(createUserLockDto: CreateUserLockDto) {
@@ -35,5 +38,22 @@ export class UserLockService {
 
   async remove(id: number) {
     return await this.userLockRepository.nativeDelete({ id });
+  }
+
+  async unlock(userId: number, lockId: number) {
+    const userLock = await this.userLockRepository.findOne({
+      lock: lockId,
+      user: userId,
+    });
+
+    if (!userLock) {
+      return null;
+    }
+
+    return await this.logService.create({
+      userLock,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
   }
 }
