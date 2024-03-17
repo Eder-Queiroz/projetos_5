@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { HttpException, Inject, Injectable } from '@nestjs/common';
 import { CreateUserLockDto } from './dto/create-user-lock.dto';
 import { UpdateUserLockDto } from './dto/update-user-lock.dto';
 import { UserLock } from './entities/user-lock.entity';
@@ -47,7 +47,7 @@ export class UserLockService {
     });
 
     if (!userLock) {
-      return null;
+      throw new HttpException('user not register in lock', 401);
     }
 
     return await this.logService.create({

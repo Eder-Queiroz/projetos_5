@@ -20,7 +20,7 @@ export class UsersService {
     this.userProvider.stayUserInfo(user);
 
     try {
-      await axios.get('http://localhost:3000/users/rfid/a2b5');
+      await axios.get(process.env.ESP_HOST + '/cadastroRFID');
 
       return user;
     } catch (error) {
