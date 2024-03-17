@@ -43,8 +43,8 @@ export class UserLockController {
     return this.userLockService.remove(+id);
   }
 
-  @Get(':rfId/unlock/:lockId')
-  unlock(@Param('rfId') rfId: string, @Param('lockId') lockId: string) {
+  @Post('/unlock')
+  unlock(@Body('rfId') rfId: string, @Body('lockId') lockId: string) {
     return this.userLockService.unlock(rfId, +lockId);
   }
 }
