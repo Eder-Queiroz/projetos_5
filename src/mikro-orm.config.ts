@@ -21,6 +21,7 @@ const mikroOrmConfig: Options = {
     warnWhenNoEntities: true,
   },
   allowGlobalContext: true,
+  debug: true,
   extensions: [Migrator],
 };
 

@@ -5,6 +5,7 @@ import { MikroORM } from '@mikro-orm/core';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  app.enableCors();
   const mikroOrm = app.get(MikroORM);
   await mikroOrm.getMigrator().up();
 

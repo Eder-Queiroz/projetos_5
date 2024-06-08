@@ -7,13 +7,19 @@ import { UsersModule } from './users/users.module';
 import { UserLockModule } from './user-lock/user-lock.module';
 import { LogModule } from './log/log.module';
 import { ConfigModule } from '@nestjs/config';
-
+import { ThrottlerModule } from '@nestjs/throttler';
 @Module({
   imports: [
     MikroOrmModule.forRoot(),
     ConfigModule.forRoot({
       envFilePath: '.env',
     }),
+    ThrottlerModule.forRoot([
+      {
+        ttl: 60000,
+        limit: 100,
+      },
+    ]),
     LocksModule,
     UsersModule,
     UserLockModule,

@@ -33,6 +33,7 @@
     "@nestjs/mapped-types": "*",
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/platform-socket.io": "^10.3.3",
+    "@nestjs/throttler": "^5.1.2",
     "@nestjs/websockets": "^10.3.3",
     "axios": "^1.6.8",
     "reflect-metadata": "^0.2.0",
